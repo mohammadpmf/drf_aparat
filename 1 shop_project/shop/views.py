@@ -51,3 +51,25 @@ def get_address(request, pk):
     )
     serializer = AddressSerializer(address)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view()
+def get_customers(request):
+    customers = Customer.objects.all()[:10]
+    serializer = CustomerSerializer(customers, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(http_method_names=["GET", "POST", "PUT", "PATCH", "DELETE"])
+def get_customer(request, pk):
+    if request.method == "GET":
+        customer = get_object_or_404(Customer, pk=pk)
+        serializer = CustomerSerializer(customer)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    if request.method == "POST":
+        serializer = CustomerSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    return Response("OK", status=status.HTTP_200_OK)

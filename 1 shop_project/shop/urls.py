@@ -9,4 +9,6 @@ urlpatterns = [
     path("product/<int:pk>/", views.get_product, name="product"),
     path("addresses/", views.get_addresses, name="addresses"),
     path("address/<int:pk>/", views.get_address, name="address"),
+    path("customers/", views.get_customers, name="customers"),
+    path("customer/<int:pk>/", views.get_customer, name="customer"),
 ]

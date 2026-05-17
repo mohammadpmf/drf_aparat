@@ -2,7 +2,7 @@ from decimal import Decimal
 
 from rest_framework import serializers
 
-from .models import Product
+from .models import Address, Product, Customer
 
 
 class CategorySerializer(serializers.Serializer):
@@ -32,12 +32,45 @@ class ProductSerializer(serializers.Serializer):
         return product.inventory + 5
 
 
-class CustomerSerializer(serializers.Serializer):
-    first_name = serializers.CharField(max_length=255)
-    last_name = serializers.CharField(max_length=255)
-    email = serializers.EmailField()
-    phone_number = serializers.CharField(max_length=255)
-    birth_date = serializers.DateField()
+class CustomerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Customer
+        fields = [
+            "first_name",
+            "last_name",
+            "email",
+            "phone_number",
+            "birth_date",
+        ]
+        extra_kwargs = {"email": {"required": False}}
+
+    def validate_email(self, value: str):
+        if not value.endswith("@drdjango.ir"):
+            raise serializers.ValidationError(
+                "آدرس ایمیل شما حتما باید برای سایت دکترجنگو باشد."
+            )
+        return value
+
+    def validate(self, attrs):
+        first_name = attrs.get("first_name")
+        last_name = attrs.get("last_name")
+        if len(first_name) <= 2 or len(last_name) <= 2:
+            raise serializers.ValidationError(
+                {"name_length": "نام و نام خانوادگی باید بیش از ۲ کاراکتر باشد."}
+            )
+        return super().validate(attrs)
+
+
+# class CustomerSerializer(serializers.Serializer):
+#     first_name = serializers.CharField(max_length=255)
+#     last_name = serializers.CharField(max_length=255)
+#     email = serializers.EmailField()
+#     phone_number = serializers.CharField(max_length=255)
+#     birth_date = serializers.DateField(required=False)
+
+#     def create(self, validated_data):
+#         Customer.objects.create(**validated_data)
+#         return validated_data
 
 
 class CountrySerializer(serializers.Serializer):
@@ -57,15 +90,37 @@ class CitySerializer(serializers.Serializer):
     province = ProvinceSerializer()
 
 
-class AddressSerializer(serializers.Serializer):
-    customer_id = serializers.PrimaryKeyRelatedField(read_only=True)
+class AddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        fields = [
+            "customer_id",
+            "customer_name",
+            "customer_info",
+            "city",
+            "street",
+            "alley",
+            "building_number",
+            "building_name",
+            "floor",
+            "unit",
+            "zip_code",
+        ]
+
     customer_name = serializers.StringRelatedField(read_only=True, source="customer")
     customer_info = CustomerSerializer(source="customer")
     city = CitySerializer()
-    street = serializers.CharField(max_length=255)
-    alley = serializers.CharField(max_length=255)
-    building_number = serializers.IntegerField()
-    building_name = serializers.CharField(max_length=255)
-    floor = serializers.IntegerField()
-    unit = serializers.IntegerField()
-    zip_code = serializers.CharField(max_length=10)
+
+
+# class AddressSerializer(serializers.Serializer):
+#     customer_id = serializers.PrimaryKeyRelatedField(read_only=True)
+#     customer_name = serializers.StringRelatedField(read_only=True, source="customer")
+#     customer_info = CustomerSerializer(source="customer")
+#     city = CitySerializer()
+#     street = serializers.CharField(max_length=255)
+#     alley = serializers.CharField(max_length=255)
+#     building_number = serializers.IntegerField()
+#     building_name = serializers.CharField(max_length=255)
+#     floor = serializers.IntegerField()
+#     unit = serializers.IntegerField()
+#     zip_code = serializers.CharField(max_length=10)
