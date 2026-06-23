@@ -42,7 +42,7 @@ class CustomerSerializer(serializers.ModelSerializer):
             "phone_number",
             "birth_date",
         ]
-        extra_kwargs = {"email": {"required": False}}
+        extra_kwargs = {"email": {"required": True}}
 
     def validate_email(self, value: str):
         if not value.endswith("@drdjango.ir"):
@@ -54,7 +54,7 @@ class CustomerSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         first_name = attrs.get("first_name")
         last_name = attrs.get("last_name")
-        if len(first_name) <= 2 or len(last_name) <= 2:
+        if (first_name and len(first_name) <= 2) or (last_name and len(last_name) <= 2):
             raise serializers.ValidationError(
                 {"name_length": "نام و نام خانوادگی باید بیش از ۲ کاراکتر باشد."}
             )

@@ -62,8 +62,8 @@ def get_customers(request):
 
 @api_view(http_method_names=["GET", "POST", "PUT", "PATCH", "DELETE"])
 def get_customer(request, pk):
+    customer = get_object_or_404(Customer, pk=pk)
     if request.method == "GET":
-        customer = get_object_or_404(Customer, pk=pk)
         serializer = CustomerSerializer(customer)
         return Response(serializer.data, status=status.HTTP_200_OK)
     if request.method == "POST":
@@ -71,5 +71,17 @@ def get_customer(request, pk):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
+    if request.method == "DELETE":
+        customer.delete()
+        return Response("Customer deleted successfully!", status=status.HTTP_204_NO_CONTENT)
+    if request.method == "PUT":
+        serializer = CustomerSerializer(instance=customer, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+    if request.method == "PATCH":
+        serializer = CustomerSerializer(instance=customer, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
     return Response("OK", status=status.HTTP_200_OK)
