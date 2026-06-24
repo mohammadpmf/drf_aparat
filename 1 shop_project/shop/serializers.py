@@ -2,7 +2,7 @@ from decimal import Decimal
 
 from rest_framework import serializers
 
-from .models import Address, Product, Customer
+from .models import Address, Order, OrderItem, Product, Customer
 
 
 class CategorySerializer(serializers.Serializer):
@@ -124,3 +124,30 @@ class AddressSerializer(serializers.ModelSerializer):
 #     floor = serializers.IntegerField()
 #     unit = serializers.IntegerField()
 #     zip_code = serializers.CharField(max_length=10)
+
+
+class OrderItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderItem
+        fields = [
+            "quantity",
+            "price",
+            "product",
+        ]
+
+    product = ProductSerializer()
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = [
+            "id",
+            "customer",
+            "status",
+            "items",
+        ]
+
+    customer = CustomerSerializer()
+    status = serializers.CharField(source="get_status_display")
+    items = OrderItemSerializer(many=True)

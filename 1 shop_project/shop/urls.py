@@ -11,4 +11,6 @@ urlpatterns = [
     path("address/<int:pk>/", views.get_address, name="address"),
     path("customers/", views.get_customers, name="customers"),
     path("customer/<int:pk>/", views.get_customer, name="customer"),
+    path("orders/", views.get_orders, name="orders"),
+    path("order/<int:pk>/", views.get_order, name="order"),
 ]
