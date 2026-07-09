@@ -1,6 +1,7 @@
 from django.db.models import Prefetch
 from django.shortcuts import get_object_or_404
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, APIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -92,6 +93,60 @@ def get_customer(request, pk):
     return Response("OK", status=status.HTTP_200_OK)
 
 
+class GetCustomers(APIView):
+    def post(self, request):
+        serializer = CustomerSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def get(self, request):
+        customers = Customer.objects.all()[:10]
+        serializer = CustomerSerializer(customers, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
+class GetCustomer(APIView):
+    def get(self, request, pk):
+        customer = get_object_or_404(Customer, pk=pk)
+        serializer = CustomerSerializer(customer)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def put(self, request, pk):
+        customer = get_object_or_404(Customer, pk=pk)
+        serializer = CustomerSerializer(instance=customer, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+    def patch(self, request, pk):
+        customer = get_object_or_404(Customer, pk=pk)
+        serializer = CustomerSerializer(
+            instance=customer, data=request.data, partial=True
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+    def delete(self, request, pk):
+        customer = get_object_or_404(Customer, pk=pk)
+        customer.delete()
+        return Response(
+            "Customer deleted successfully!", status=status.HTTP_204_NO_CONTENT
+        )
+
+
+class GetCustomers(ListCreateAPIView):
+    serializer_class = CustomerSerializer
+    queryset = Customer.objects.all()
+
+
+class GetCustomer(RetrieveUpdateDestroyAPIView):
+    serializer_class = CustomerSerializer
+    queryset = Customer.objects.all()
+
+
 @api_view(http_method_names=["GET", "POST"])
 def get_orders(request):
     if request.method == "POST":
@@ -129,9 +184,7 @@ def get_order(request, pk):
         return Response(serializer.data)
     if request.method == "PATCH":
         serializer = OrderSerializer(instance=order, data=request.data, partial=True)
-        print(request.data)
         serializer.is_valid(raise_exception=True)
-        print(serializer.validated_data)
         serializer.save()
         return Response(serializer.data)
     if request.method == "DELETE":
@@ -139,3 +192,86 @@ def get_order(request, pk):
         return Response(
             "Customer deleted successfully!", status=status.HTTP_204_NO_CONTENT
         )
+
+
+class GetOrders(APIView):
+    def get(self, request):
+        order_items_query_set = OrderItem.objects.select_related("product__category")
+        orders = (
+            Order.objects.all()
+            .select_related("customer")
+            .prefetch_related(Prefetch("items", queryset=order_items_query_set))[:100]
+        )
+        serializer = OrderSerializer(orders, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        serializer = OrderSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+
+class GetOrder(APIView):
+    def get_object(self, pk):
+        order_items_query_set = OrderItem.objects.select_related("product__category")
+        order = get_object_or_404(
+            Order.objects.select_related("customer").prefetch_related(
+                Prefetch("items", queryset=order_items_query_set)
+            ),
+            pk=pk,
+        )
+        return order
+
+    def get(self, request, pk):
+        order = self.get_object(pk)
+        serializer = OrderSerializer(order)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def put(self, request, pk):
+        order = self.get_object(pk)
+        serializer = OrderSerializer(instance=order, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+    def patch(self, request, pk):
+        order = self.get_object(pk)
+        serializer = OrderSerializer(instance=order, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+    def delete(self, request, pk):
+        order = self.get_object(pk)
+        order.delete()
+        return Response(
+            "Customer deleted successfully!", status=status.HTTP_204_NO_CONTENT
+        )
+
+
+class GetOrders(ListCreateAPIView):
+    serializer_class = OrderSerializer
+    queryset = (
+        Order.objects.all()
+        .select_related("customer")
+        .prefetch_related(
+            Prefetch(
+                "items", queryset=OrderItem.objects.select_related("product__category")
+            )
+        )
+    )
+
+
+class GetOrder(RetrieveUpdateDestroyAPIView):
+    serializer_class = OrderSerializer
+    queryset = (
+        Order.objects.all()
+        .select_related("customer")
+        .prefetch_related(
+            Prefetch(
+                "items", queryset=OrderItem.objects.select_related("product__category")
+            )
+        )
+    )
