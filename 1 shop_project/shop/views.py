@@ -1,6 +1,7 @@
 from django.db.models import Prefetch
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view, APIView
+from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -23,6 +24,11 @@ def get_category(request, pk):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+class CategoryViewSet(ModelViewSet):
+    serializer_class = CategorySerializer
+    queryset = Category.objects.all()
+
+
 @api_view()
 def get_products(request):
     products = Product.objects.select_related("category").all()[:100]
@@ -35,6 +41,11 @@ def get_product(request, pk):
     product = get_object_or_404(Product.objects.select_related("category"), pk=pk)
     serializer = ProductSerializer(product)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class ProductViewSet(ModelViewSet):
+    serializer_class = ProductSerializer
+    queryset = Product.objects.select_related("category").all()[:100]
 
 
 @api_view()
@@ -53,6 +64,13 @@ def get_address(request, pk):
     )
     serializer = AddressSerializer(address)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class AddressViewSet(ModelViewSet):
+    serializer_class = AddressSerializer
+    queryset = Address.objects.select_related(
+        "customer", "city__province__country"
+    ).all()
 
 
 @api_view(http_method_names=["GET", "POST"])
@@ -106,7 +124,6 @@ class GetCustomers(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-
 class GetCustomer(APIView):
     def get(self, request, pk):
         customer = get_object_or_404(Customer, pk=pk)
@@ -143,6 +160,11 @@ class GetCustomers(ListCreateAPIView):
 
 
 class GetCustomer(RetrieveUpdateDestroyAPIView):
+    serializer_class = CustomerSerializer
+    queryset = Customer.objects.all()
+
+
+class CustomerViewset(ModelViewSet):
     serializer_class = CustomerSerializer
     queryset = Customer.objects.all()
 
@@ -212,7 +234,6 @@ class GetOrders(APIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-
 class GetOrder(APIView):
     def get_object(self, pk):
         order_items_query_set = OrderItem.objects.select_related("product__category")
@@ -265,6 +286,19 @@ class GetOrders(ListCreateAPIView):
 
 
 class GetOrder(RetrieveUpdateDestroyAPIView):
+    serializer_class = OrderSerializer
+    queryset = (
+        Order.objects.all()
+        .select_related("customer")
+        .prefetch_related(
+            Prefetch(
+                "items", queryset=OrderItem.objects.select_related("product__category")
+            )
+        )
+    )
+
+
+class OrderViewSet(ModelViewSet):
     serializer_class = OrderSerializer
     queryset = (
         Order.objects.all()
