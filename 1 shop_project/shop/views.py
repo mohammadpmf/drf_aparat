@@ -5,9 +5,11 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
 
 from .models import *
 from .serializers import *
+from .paginations import *
 
 
 @api_view()
@@ -27,6 +29,7 @@ def get_category(request, pk):
 class CategoryViewSet(ModelViewSet):
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
+    pagination_class = PageNumberPagination
 
 
 @api_view()
@@ -46,6 +49,7 @@ def get_product(request, pk):
 class ProductViewSet(ModelViewSet):
     serializer_class = ProductSerializer
     queryset = Product.objects.select_related("category").all()[:100]
+    pagination_class = PageNumberPagination
 
 
 @api_view()
@@ -71,6 +75,7 @@ class AddressViewSet(ModelViewSet):
     queryset = Address.objects.select_related(
         "customer", "city__province__country"
     ).all()
+    pagination_class = PageNumberPagination
 
 
 @api_view(http_method_names=["GET", "POST"])
@@ -167,6 +172,7 @@ class GetCustomer(RetrieveUpdateDestroyAPIView):
 class CustomerViewSet(ModelViewSet):
     serializer_class = CustomerSerializer
     queryset = Customer.objects.all()
+    pagination_class = PageNumberPagination
 
 
 @api_view(http_method_names=["GET", "POST"])
@@ -309,3 +315,5 @@ class OrderViewSet(ModelViewSet):
             )
         )
     )
+    # pagination_class = OrderPagination
+    pagination_class = PageNumberPagination
