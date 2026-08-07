@@ -6,10 +6,15 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
+from rest_framework import filters as drf_filters
+
+from django_filters import rest_framework as df_filters
+
 
 from .models import *
 from .serializers import *
 from .paginations import *
+from .filters import ProductFilter
 
 
 @api_view()
@@ -34,7 +39,7 @@ class CategoryViewSet(ModelViewSet):
 
 @api_view()
 def get_products(request):
-    products = Product.objects.select_related("category").all()[:100]
+    products = Product.objects.select_related("category").all()
     serializer = ProductSerializer(products, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -48,8 +53,18 @@ def get_product(request, pk):
 
 class ProductViewSet(ModelViewSet):
     serializer_class = ProductSerializer
-    queryset = Product.objects.select_related("category").all()[:100]
+    queryset = Product.objects.select_related("category").all()
     pagination_class = PageNumberPagination
+    filter_backends = [
+        df_filters.DjangoFilterBackend,
+        drf_filters.SearchFilter,
+        drf_filters.OrderingFilter,
+    ]
+    # # filterset_fields = ["title", "category", "inventory", "inventory"]
+    # filterset_fields = ["title__contains", "category", "inventory", "inventory"]
+    filterset_class = ProductFilter
+    search_fields = ["inventory"]
+    ordering_fields = ["title", "price", "inventory", "category"]
 
 
 @api_view()
@@ -85,7 +100,7 @@ def get_customers(request):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    customers = Customer.objects.all()[:10]
+    customers = Customer.objects.all()
     serializer = CustomerSerializer(customers, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -124,7 +139,7 @@ class GetCustomers(APIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def get(self, request):
-        customers = Customer.objects.all()[:10]
+        customers = Customer.objects.all()
         serializer = CustomerSerializer(customers, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -186,8 +201,8 @@ def get_orders(request):
     orders = (
         Order.objects.all()
         .select_related("customer")
-        .prefetch_related(Prefetch("items", queryset=order_items_query_set))[:100]
-        # .prefetch_related("items__product__category")[:100]
+        .prefetch_related(Prefetch("items", queryset=order_items_query_set))
+        # .prefetch_related("items__product__category")
     )
     serializer = OrderSerializer(orders, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
@@ -228,7 +243,7 @@ class GetOrders(APIView):
         orders = (
             Order.objects.all()
             .select_related("customer")
-            .prefetch_related(Prefetch("items", queryset=order_items_query_set))[:100]
+            .prefetch_related(Prefetch("items", queryset=order_items_query_set))
         )
         serializer = OrderSerializer(orders, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
