@@ -103,6 +103,7 @@ class Serial(models.Model):
     datetime_created = models.DateTimeField(auto_now_add=True, null=True)
     datetime_modified = models.DateTimeField(auto_now=True, null=True)
     # images
+    # comments
 
     def __str__(self):
         if self.end_year is None:
@@ -127,6 +128,7 @@ class Music(models.Model):
     other_singers = models.ManyToManyField(to=Artist, blank=True, related_name="musics")
     datetime_created = models.DateTimeField(auto_now_add=True, null=True)
     datetime_modified = models.DateTimeField(auto_now=True, null=True)
+    # comments
 
     def __str__(self):
         return f"{self.title} {self.main_singer} {self.year}"
@@ -167,6 +169,7 @@ class Staff(models.Model):
         to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True
     )
     phone_number = models.CharField(max_length=14, blank=True, null=True, unique=True)
+    # comments
 
     def __str__(self):
         temp = f"{self.user.username}"
