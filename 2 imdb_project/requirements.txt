@@ -1,0 +1,10 @@
+asgiref==3.12.1
+Django==6.1
+django-debug-toolbar==7.0.0
+django-filter==26.1
+djangorestframework==3.18.0
+jalali_core==1.0.0
+jdatetime==6.0.2
+pillow==12.3.0
+sqlparse==0.5.5
+tzdata==2026.3

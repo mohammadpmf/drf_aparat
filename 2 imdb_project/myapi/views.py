@@ -24,8 +24,11 @@ from .permissions import IsAdminOrReadOnly
 class MovieViewSet(ModelViewSet):
     serializer_class = MovieSerializer
     queryset = (
-        Movie.objects.all().select_related("director").prefetch_related("genre", "cast")
+        Movie.objects.all()
+        .select_related("director")
+        .prefetch_related("genre", "cast", "comments", "images")
     )
+
     filter_backends = [SearchFilter, DjangoFilterBackend, OrderingFilter]
     ordering_fields = ["year", "rating", "release_date"]
     search_fields = [

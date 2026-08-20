@@ -4,7 +4,6 @@ from rest_framework.routers import DefaultRouter
 # from drf_yasg import openapi
 
 from . import views
-from . import views_extra_part
 
 # schema_view = get_schema_view(
 #     openapi.Info(
@@ -32,14 +31,4 @@ urlpatterns = [
     #     name="schema-swagger-ui",
     # ),
     # path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
-    path("get_sms/", views_extra_part.get_sms, name="get_sms"),
 ]
-
-# urlpatterns = [
-#     path("movies/", views.MovieList.as_view(), name="movies"),
-#     path("movies/<int:pk>/", views.MovieDetail.as_view(), name="movie-detail"),
-#     path("series/", views.SerialList.as_view(), name="series"),
-#     path("series/<int:pk>/", views.SerialDetail.as_view(), name="serial-detail"),
-#     path("music/", views.MusicList.as_view(), name="musics"),
-#     path("music/<int:pk>/", views.MusicDetail.as_view(), name="music-detail"),
-# ]

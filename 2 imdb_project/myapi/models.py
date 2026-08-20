@@ -74,6 +74,7 @@ class Movie(models.Model):
     datetime_created = models.DateTimeField(auto_now_add=True, null=True)
     datetime_modified = models.DateTimeField(auto_now=True, null=True)
     # images
+    # comments
 
     def __str__(self):
         return f"{self.title} ({self.year})"
@@ -161,114 +162,114 @@ class Image(models.Model):
         return f"A picture of {self.serial}"
 
 
-# class Staff(models.Model):
-#     user = models.OneToOneField(
-#         to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True
-#     )
-#     phone_number = models.CharField(max_length=14, blank=True, null=True, unique=True)
+class Staff(models.Model):
+    user = models.OneToOneField(
+        to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True
+    )
+    phone_number = models.CharField(max_length=14, blank=True, null=True, unique=True)
 
-#     def __str__(self):
-#         temp = f"{self.user.username}"
-#         if self.user.first_name.strip() != "" or self.user.last_name.strip() != "":
-#             temp += (
-#                 f" (Name: {self.user.first_name.strip()} {self.user.last_name.strip()})"
-#             )
-#         return temp
+    def __str__(self):
+        temp = f"{self.user.username}"
+        if self.user.first_name.strip() != "" or self.user.last_name.strip() != "":
+            temp += (
+                f" (Name: {self.user.first_name.strip()} {self.user.last_name.strip()})"
+            )
+        return temp
 
-#     @property
-#     def full_name(self):
-#         return f"{self.user.first_name} {self.user.last_name}"
+    @property
+    def full_name(self):
+        return f"{self.user.first_name} {self.user.last_name}"
 
-#     @property
-#     def email(self):
-#         return self.user.email
+    @property
+    def email(self):
+        return self.user.email
 
-#     @property
-#     def username(self):
-#         return self.user.username
+    @property
+    def username(self):
+        return self.user.username
 
 
-# class Comment(models.Model):
-#     user = models.ForeignKey(
-#         to=Staff,
-#         on_delete=models.SET_NULL,
-#         related_name="comments",
-#         blank=True,
-#         null=True,
-#     )
-#     text = models.TextField()
-#     is_active = models.BooleanField(default=False)
-#     movie = models.ForeignKey(
-#         to=Movie,
-#         on_delete=models.CASCADE,
-#         related_name="comments",
-#         blank=True,
-#         null=True,
-#     )
-#     serial = models.ForeignKey(
-#         to=Serial,
-#         on_delete=models.CASCADE,
-#         related_name="comments",
-#         blank=True,
-#         null=True,
-#     )
-#     music = models.ForeignKey(
-#         to=Music,
-#         on_delete=models.CASCADE,
-#         related_name="comments",
-#         blank=True,
-#         null=True,
-#     )
+class Comment(models.Model):
+    user = models.ForeignKey(
+        to=Staff,
+        on_delete=models.SET_NULL,
+        related_name="comments",
+        blank=True,
+        null=True,
+    )
+    text = models.TextField()
+    is_active = models.BooleanField(default=False)
+    movie = models.ForeignKey(
+        to=Movie,
+        on_delete=models.CASCADE,
+        related_name="comments",
+        blank=True,
+        null=True,
+    )
+    serial = models.ForeignKey(
+        to=Serial,
+        on_delete=models.CASCADE,
+        related_name="comments",
+        blank=True,
+        null=True,
+    )
+    music = models.ForeignKey(
+        to=Music,
+        on_delete=models.CASCADE,
+        related_name="comments",
+        blank=True,
+        null=True,
+    )
 
-#     def clean(self):
-#         super().clean()
-#         if (
-#             self.movie in [None, ""]
-#             and self.serial in [None, ""]
-#             and self.music in [None, ""]
-#         ):
-#             raise ValidationError(
-#                 "You should choose exactly a Movie, Serial or Music!\nAll of them can't be Null!"
-#             )
-#         elif (
-#             self.movie not in [None, ""]
-#             and self.serial not in [None, ""]
-#             and self.music not in [None, ""]
-#         ):
-#             raise ValidationError(
-#                 "You should choose exactly a Movie, Serial or Music!\nYou can't write a comment for all of them!"
-#             )
-#         elif (
-#             (
-#                 self.movie in [None, ""]
-#                 and self.serial not in [None, ""]
-#                 and self.music not in [None, ""]
-#             )
-#             or (
-#                 self.movie not in [None, ""]
-#                 and self.serial in [None, ""]
-#                 and self.music not in [None, ""]
-#             )
-#             or (
-#                 self.movie not in [None, ""]
-#                 and self.serial not in [None, ""]
-#                 and self.music in [None, ""]
-#             )
-#         ):
-#             raise ValidationError(
-#                 "You should choose exactly a Movie, Serial or Music!\nYou can't write a comment for two of them!"
-#             )
-#         if self.user == None:
-#             raise ValidationError("You should choose Who has commented!")
+    def clean(self):
+        super().clean()
+        if (
+            self.movie in [None, ""]
+            and self.serial in [None, ""]
+            and self.music in [None, ""]
+        ):
+            raise ValidationError(
+                "You should choose exactly a Movie, Serial or Music!\nAll of them can't be Null!"
+            )
+        elif (
+            self.movie not in [None, ""]
+            and self.serial not in [None, ""]
+            and self.music not in [None, ""]
+        ):
+            raise ValidationError(
+                "You should choose exactly a Movie, Serial or Music!\nYou can't write a comment for all of them!"
+            )
+        elif (
+            (
+                self.movie in [None, ""]
+                and self.serial not in [None, ""]
+                and self.music not in [None, ""]
+            )
+            or (
+                self.movie not in [None, ""]
+                and self.serial in [None, ""]
+                and self.music not in [None, ""]
+            )
+            or (
+                self.movie not in [None, ""]
+                and self.serial not in [None, ""]
+                and self.music in [None, ""]
+            )
+        ):
+            raise ValidationError(
+                "You should choose exactly a Movie, Serial or Music!\nYou can't write a comment for two of them!"
+            )
+        if self.user == None:
+            raise ValidationError("You should choose Who has commented!")
 
-#     def __str__(self):
-#         if self.user == None:
-#             return "Ananymous User"
-#         if self.user.full_name.strip() not in [None, ""]:
-#             temp = self.user.full_name.strip()
-#         else:
-#             temp = self.user.phone_number
-#         temp += f": {self.text[:30]}"
-#         if len(self.text) > 30:
-#             temp += "..."
-#         return temp
+    def __str__(self):
+        if self.user == None:
+            return "Ananymous User"
+        if self.user.full_name.strip() not in [None, ""]:
+            temp = self.user.full_name.strip()
+        else:
+            temp = self.user.phone_number
+        temp += f": {self.text[:30]}"
+        if len(self.text) > 30:
+            temp += "..."
+        return temp

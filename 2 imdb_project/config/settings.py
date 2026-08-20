@@ -37,10 +37,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
+    "django_filters",
+    "debug_toolbar",
     "myapi",
 ]
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -48,6 +52,11 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
+
+INTERNAL_IPS = [
+    "localhost",
+    "127.0.0.1",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -125,4 +134,11 @@ MAILERS = {
     "default": {
         "BACKEND": "django.core.mail.backends.console.EmailBackend",
     },
+}
+
+REST_FRAMEWORK = {
+    "COERCE_DECIMAL_TO_STRING": False,
+    "PAGE_SIZE": 10,
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
 }
