@@ -2,9 +2,14 @@ from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
 from django.db.models import Prefetch
 from drf_spectacular.utils import extend_schema, extend_schema_view
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 
-from .models import UserProfile, Post, Comment, Image
-from .serializers import UserProfileSerializer, PostSerializer
+from .models import UserProfile, Post, Comment
+from .serializers import (
+    UserProfileSerializer,
+    PostReadSerializer,
+    PostWriteSerializer,
+)
 
 
 @extend_schema_view(
@@ -42,8 +47,37 @@ class UserProfileViewSet(ModelViewSet):
     queryset = UserProfile.objects.filter(is_active=True).select_related("user")
 
 
+def _post_multipart_schema(required_user: bool = True):
+    schema = {
+        "multipart/form-data": {
+            "type": "object",
+            "properties": {
+                "user": {"type": "integer"},
+                "caption": {"type": "string"},
+                "images": {
+                    "type": "array",
+                    "items": {"type": "string", "format": "binary"},
+                },
+            },
+        }
+    }
+    if required_user:
+        schema["multipart/form-data"]["required"] = ["user"]
+    return schema
+
+
+@extend_schema_view(
+    create=extend_schema(request=_post_multipart_schema(required_user=True)),
+    update=extend_schema(request=_post_multipart_schema(required_user=True)),
+    partial_update=extend_schema(request=_post_multipart_schema(required_user=False)),
+)
 class PostViewSet(ModelViewSet):
-    serializer_class = PostSerializer
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
+
+    def get_serializer_class(self):
+        if self.action in ("create", "update", "partial_update"):
+            return PostWriteSerializer
+        return PostReadSerializer
 
     def get_queryset(self):
         comments_qs = Comment.objects.select_related("user__user")
