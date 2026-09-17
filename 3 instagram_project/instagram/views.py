@@ -1,16 +1,41 @@
 from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
 from django.db.models import Prefetch
-from drf_spectacular.utils import extend_schema
+from drf_spectacular.utils import extend_schema, extend_schema_view
 
 from .models import UserProfile, Post, Comment, Image
 from .serializers import UserProfileSerializer, PostSerializer
 
 
-@extend_schema(
-    summary="User List",
-    description="Returns a list of all users",
-    responses={200: UserProfileSerializer(many=True)},
+@extend_schema_view(
+    list=extend_schema(
+        summary="User List",
+        description="Returns a list of all users",
+        responses={200: UserProfileSerializer(many=True)},
+    ),
+    retrieve=extend_schema(
+        summary="Retrieve a user",
+        responses={200: UserProfileSerializer},
+    ),
+    create=extend_schema(
+        summary="Create a user",
+        request=UserProfileSerializer,
+        responses={201: UserProfileSerializer},
+    ),
+    update=extend_schema(
+        summary="Update a user",
+        request=UserProfileSerializer,
+        responses={200: UserProfileSerializer},
+    ),
+    partial_update=extend_schema(
+        summary="Partially update a user",
+        request=UserProfileSerializer,
+        responses={200: UserProfileSerializer},
+    ),
+    destroy=extend_schema(
+        summary="Delete a user",
+        responses={204: None},
+    ),
 )
 class UserProfileViewSet(ModelViewSet):
     serializer_class = UserProfileSerializer

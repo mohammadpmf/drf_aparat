@@ -26,7 +26,6 @@ from drf_spectacular.views import (
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("instagram/", include("instagram.urls")),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
         "api/docs/",
@@ -34,6 +33,7 @@ urlpatterns = [
         name="swagger-ui",
     ),
     path("api/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
+    path("instagram/", include("instagram.urls")),
 ]
 
 
@@ -41,5 +41,6 @@ if settings.DEBUG:
     import debug_toolbar
 
     urlpatterns = [
+        path("silk/", include("silk.urls", namespace="silk")),
         path("__debug__/", include(debug_toolbar.urls)),
     ] + urlpatterns
