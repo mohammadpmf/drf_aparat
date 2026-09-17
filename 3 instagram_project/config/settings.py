@@ -42,8 +42,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # third party apps
     "debug_toolbar",
+    "rest_framework",
+    "drf_spectacular",
     # my apps
     "accounts",
+    "instagram",
 ]
 
 MIDDLEWARE = [
@@ -146,3 +149,18 @@ MAILERS = {
 
 
 AUTH_USER_MODEL = "accounts.CustomUser"
+
+REST_FRAMEWORK = {
+    # "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "My Project API",
+    "DESCRIPTION": "API Documentation Description",
+    "VERSION": "1.0.0",
+}
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
