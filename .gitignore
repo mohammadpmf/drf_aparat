@@ -3,3 +3,4 @@ venv
 1 shop_project/shop/management
 ezafeh.py
 .env
+media/
