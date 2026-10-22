@@ -3,6 +3,7 @@ from rest_framework.viewsets import ModelViewSet
 from django.db.models import Prefetch
 from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
+from rest_framework import status
 
 from .models import UserProfile, Post, Comment
 from .serializers import (
@@ -16,30 +17,30 @@ from .serializers import (
     list=extend_schema(
         summary="User List",
         description="Returns a list of all users",
-        responses={200: UserProfileSerializer(many=True)},
+        responses={status.HTTP_200_OK: UserProfileSerializer(many=True)},
     ),
     retrieve=extend_schema(
         summary="Retrieve a user",
-        responses={200: UserProfileSerializer},
+        responses={status.HTTP_200_OK: UserProfileSerializer},
     ),
     create=extend_schema(
         summary="Create a user",
         request=UserProfileSerializer,
-        responses={201: UserProfileSerializer},
+        responses={status.HTTP_201_CREATED: UserProfileSerializer},
     ),
     update=extend_schema(
         summary="Update a user",
         request=UserProfileSerializer,
-        responses={200: UserProfileSerializer},
+        responses={status.HTTP_200_OK: UserProfileSerializer},
     ),
     partial_update=extend_schema(
         summary="Partially update a user",
         request=UserProfileSerializer,
-        responses={200: UserProfileSerializer},
+        responses={status.HTTP_200_OK: UserProfileSerializer},
     ),
     destroy=extend_schema(
         summary="Delete a user",
-        responses={204: None},
+        responses={status.HTTP_204_NO_CONTENT: None},
     ),
 )
 class UserProfileViewSet(ModelViewSet):
