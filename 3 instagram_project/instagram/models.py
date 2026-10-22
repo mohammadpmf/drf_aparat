@@ -25,6 +25,9 @@ class UserProfile(Base):
     # comments
     # liked_posts
 
+    def __str__(self):
+        return f"{self.username}"
+
 
 class Post(Base):
     user = models.ForeignKey(
@@ -36,6 +39,9 @@ class Post(Base):
     )
     # images
     # comments
+
+    def __str__(self):
+        return f"{self.caption}"
 
 
 class Image(Base):
@@ -49,3 +55,6 @@ class Comment(Base):
     )
     post = models.ForeignKey(to=Post, on_delete=models.CASCADE, related_name="comments")
     text = models.TextField(max_length=1000, default="lorem ipsum")
+
+    def __str__(self):
+        return f"{self.text}"

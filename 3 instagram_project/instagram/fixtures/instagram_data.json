@@ -1,0 +1,522 @@
+[
+    {
+        "model": "instagram.userprofile",
+        "pk": 1,
+        "fields": {
+            "created_at": "2023-01-01T00:00:00Z",
+            "updated_at": "2023-01-01T00:00:00Z",
+            "is_active": true,
+            "user": 1,
+            "username": "admin_profile",
+            "bio": "I am the admin.",
+            "profile_picture": ""
+        }
+    },
+    {
+        "model": "instagram.userprofile",
+        "pk": 2,
+        "fields": {
+            "created_at": "2023-02-15T10:30:00Z",
+            "updated_at": "2023-02-15T10:30:00Z",
+            "is_active": true,
+            "user": 2,
+            "username": "sadra_codes",
+            "bio": "Backend Developer | Python | Django",
+            "profile_picture": ""
+        }
+    },
+    {
+        "model": "instagram.userprofile",
+        "pk": 3,
+        "fields": {
+            "created_at": "2023-03-10T14:45:00Z",
+            "updated_at": "2023-03-10T14:45:00Z",
+            "is_active": true,
+            "user": 3,
+            "username": "mary_j",
+            "bio": "Just here for the memes.",
+            "profile_picture": ""
+        }
+    },
+    {
+        "model": "instagram.userprofile",
+        "pk": 4,
+        "fields": {
+            "created_at": "2023-04-05T09:15:00Z",
+            "updated_at": "2023-04-05T09:15:00Z",
+            "is_active": true,
+            "user": 4,
+            "username": "johndoe",
+            "bio": "Photography enthusiast.",
+            "profile_picture": ""
+        }
+    },
+    {
+        "model": "instagram.userprofile",
+        "pk": 5,
+        "fields": {
+            "created_at": "2023-05-20T18:20:00Z",
+            "updated_at": "2023-05-20T18:20:00Z",
+            "is_active": true,
+            "user": 5,
+            "username": "alice_w",
+            "bio": "Travel and food.",
+            "profile_picture": ""
+        }
+    },
+    {
+        "model": "instagram.userprofile",
+        "pk": 6,
+        "fields": {
+            "created_at": "2023-06-12T11:10:00Z",
+            "updated_at": "2023-06-12T11:10:00Z",
+            "is_active": true,
+            "user": 6,
+            "username": "bob_b",
+            "bio": "Music lover.",
+            "profile_picture": ""
+        }
+    },
+    {
+        "model": "instagram.userprofile",
+        "pk": 7,
+        "fields": {
+            "created_at": "2023-07-08T16:05:00Z",
+            "updated_at": "2023-07-08T16:05:00Z",
+            "is_active": true,
+            "user": 7,
+            "username": "charlie_d",
+            "bio": "Tech and gadgets.",
+            "profile_picture": ""
+        }
+    },
+    {
+        "model": "instagram.userprofile",
+        "pk": 8,
+        "fields": {
+            "created_at": "2023-08-22T08:40:00Z",
+            "updated_at": "2023-08-22T08:40:00Z",
+            "is_active": true,
+            "user": 8,
+            "username": "diana_e",
+            "bio": "Fitness and health.",
+            "profile_picture": ""
+        }
+    },
+    {
+        "model": "instagram.userprofile",
+        "pk": 9,
+        "fields": {
+            "created_at": "2023-09-14T13:25:00Z",
+            "updated_at": "2023-09-14T13:25:00Z",
+            "is_active": true,
+            "user": 9,
+            "username": "ethan_f",
+            "bio": "Gaming all day.",
+            "profile_picture": ""
+        }
+    },
+    {
+        "model": "instagram.userprofile",
+        "pk": 10,
+        "fields": {
+            "created_at": "2023-10-30T20:55:00Z",
+            "updated_at": "2023-10-30T20:55:00Z",
+            "is_active": true,
+            "user": 10,
+            "username": "fiona_g",
+            "bio": "Art and design.",
+            "profile_picture": ""
+        }
+    },
+    {
+        "model": "instagram.post",
+        "pk": 1,
+        "fields": {
+            "created_at": "2023-11-01T12:00:00Z",
+            "updated_at": "2023-11-01T12:00:00Z",
+            "is_active": true,
+            "user": 2,
+            "caption": "First post! Learning Django.",
+            "likes": [
+                1,
+                3,
+                4
+            ]
+        }
+    },
+    {
+        "model": "instagram.post",
+        "pk": 2,
+        "fields": {
+            "created_at": "2023-11-02T14:30:00Z",
+            "updated_at": "2023-11-02T14:30:00Z",
+            "is_active": true,
+            "user": 3,
+            "caption": "Beautiful sunset today.",
+            "likes": [
+                1,
+                2,
+                5,
+                6
+            ]
+        }
+    },
+    {
+        "model": "instagram.post",
+        "pk": 3,
+        "fields": {
+            "created_at": "2023-11-03T09:15:00Z",
+            "updated_at": "2023-11-03T09:15:00Z",
+            "is_active": true,
+            "user": 4,
+            "caption": "My new camera lens.",
+            "likes": [
+                2,
+                7
+            ]
+        }
+    },
+    {
+        "model": "instagram.post",
+        "pk": 4,
+        "fields": {
+            "created_at": "2023-11-04T18:45:00Z",
+            "updated_at": "2023-11-04T18:45:00Z",
+            "is_active": true,
+            "user": 5,
+            "caption": "Best pasta in town.",
+            "likes": [
+                1,
+                8,
+                9
+            ]
+        }
+    },
+    {
+        "model": "instagram.post",
+        "pk": 5,
+        "fields": {
+            "created_at": "2023-11-05T20:10:00Z",
+            "updated_at": "2023-11-05T20:10:00Z",
+            "is_active": true,
+            "user": 6,
+            "caption": "Listening to vinyl.",
+            "likes": [
+                3,
+                4,
+                5
+            ]
+        }
+    },
+    {
+        "model": "instagram.post",
+        "pk": 6,
+        "fields": {
+            "created_at": "2023-11-06T07:30:00Z",
+            "updated_at": "2023-11-06T07:30:00Z",
+            "is_active": true,
+            "user": 7,
+            "caption": "New keyboard setup.",
+            "likes": [
+                2,
+                9,
+                10
+            ]
+        }
+    },
+    {
+        "model": "instagram.post",
+        "pk": 7,
+        "fields": {
+            "created_at": "2023-11-07T11:20:00Z",
+            "updated_at": "2023-11-07T11:20:00Z",
+            "is_active": true,
+            "user": 8,
+            "caption": "Morning run complete.",
+            "likes": [
+                1,
+                2,
+                3
+            ]
+        }
+    },
+    {
+        "model": "instagram.post",
+        "pk": 8,
+        "fields": {
+            "created_at": "2023-11-08T16:00:00Z",
+            "updated_at": "2023-11-08T16:00:00Z",
+            "is_active": true,
+            "user": 9,
+            "caption": "Boss fight!",
+            "likes": [
+                4,
+                5,
+                6,
+                7
+            ]
+        }
+    },
+    {
+        "model": "instagram.post",
+        "pk": 9,
+        "fields": {
+            "created_at": "2023-11-09T13:40:00Z",
+            "updated_at": "2023-11-09T13:40:00Z",
+            "is_active": true,
+            "user": 10,
+            "caption": "Sketching in the park.",
+            "likes": [
+                8,
+                9
+            ]
+        }
+    },
+    {
+        "model": "instagram.post",
+        "pk": 10,
+        "fields": {
+            "created_at": "2023-11-10T22:15:00Z",
+            "updated_at": "2023-11-10T22:15:00Z",
+            "is_active": true,
+            "user": 2,
+            "caption": "Late night coding session.",
+            "likes": [
+                1,
+                5,
+                10
+            ]
+        }
+    },
+    {
+        "model": "instagram.image",
+        "pk": 1,
+        "fields": {
+            "created_at": "2023-11-01T12:00:00Z",
+            "updated_at": "2023-11-01T12:00:00Z",
+            "is_active": true,
+            "post": 1,
+            "image": ""
+        }
+    },
+    {
+        "model": "instagram.image",
+        "pk": 2,
+        "fields": {
+            "created_at": "2023-11-02T14:30:00Z",
+            "updated_at": "2023-11-02T14:30:00Z",
+            "is_active": true,
+            "post": 2,
+            "image": ""
+        }
+    },
+    {
+        "model": "instagram.image",
+        "pk": 3,
+        "fields": {
+            "created_at": "2023-11-03T09:15:00Z",
+            "updated_at": "2023-11-03T09:15:00Z",
+            "is_active": true,
+            "post": 3,
+            "image": ""
+        }
+    },
+    {
+        "model": "instagram.image",
+        "pk": 4,
+        "fields": {
+            "created_at": "2023-11-04T18:45:00Z",
+            "updated_at": "2023-11-04T18:45:00Z",
+            "is_active": true,
+            "post": 4,
+            "image": ""
+        }
+    },
+    {
+        "model": "instagram.image",
+        "pk": 5,
+        "fields": {
+            "created_at": "2023-11-05T20:10:00Z",
+            "updated_at": "2023-11-05T20:10:00Z",
+            "is_active": true,
+            "post": 5,
+            "image": ""
+        }
+    },
+    {
+        "model": "instagram.image",
+        "pk": 6,
+        "fields": {
+            "created_at": "2023-11-06T07:30:00Z",
+            "updated_at": "2023-11-06T07:30:00Z",
+            "is_active": true,
+            "post": 6,
+            "image": ""
+        }
+    },
+    {
+        "model": "instagram.image",
+        "pk": 7,
+        "fields": {
+            "created_at": "2023-11-07T11:20:00Z",
+            "updated_at": "2023-11-07T11:20:00Z",
+            "is_active": true,
+            "post": 7,
+            "image": ""
+        }
+    },
+    {
+        "model": "instagram.image",
+        "pk": 8,
+        "fields": {
+            "created_at": "2023-11-08T16:00:00Z",
+            "updated_at": "2023-11-08T16:00:00Z",
+            "is_active": true,
+            "post": 8,
+            "image": ""
+        }
+    },
+    {
+        "model": "instagram.image",
+        "pk": 9,
+        "fields": {
+            "created_at": "2023-11-09T13:40:00Z",
+            "updated_at": "2023-11-09T13:40:00Z",
+            "is_active": true,
+            "post": 9,
+            "image": ""
+        }
+    },
+    {
+        "model": "instagram.image",
+        "pk": 10,
+        "fields": {
+            "created_at": "2023-11-10T22:15:00Z",
+            "updated_at": "2023-11-10T22:15:00Z",
+            "is_active": true,
+            "post": 10,
+            "image": ""
+        }
+    },
+    {
+        "model": "instagram.comment",
+        "pk": 1,
+        "fields": {
+            "created_at": "2023-11-01T12:05:00Z",
+            "updated_at": "2023-11-01T12:05:00Z",
+            "is_active": true,
+            "user": 3,
+            "post": 1,
+            "text": "Welcome to Django!"
+        }
+    },
+    {
+        "model": "instagram.comment",
+        "pk": 2,
+        "fields": {
+            "created_at": "2023-11-02T14:35:00Z",
+            "updated_at": "2023-11-02T14:35:00Z",
+            "is_active": true,
+            "user": 2,
+            "post": 2,
+            "text": "Stunning view."
+        }
+    },
+    {
+        "model": "instagram.comment",
+        "pk": 3,
+        "fields": {
+            "created_at": "2023-11-02T15:00:00Z",
+            "updated_at": "2023-11-02T15:00:00Z",
+            "is_active": true,
+            "user": 5,
+            "post": 2,
+            "text": "Where is this?"
+        }
+    },
+    {
+        "model": "instagram.comment",
+        "pk": 4,
+        "fields": {
+            "created_at": "2023-11-03T09:20:00Z",
+            "updated_at": "2023-11-03T09:20:00Z",
+            "is_active": true,
+            "user": 4,
+            "post": 3,
+            "text": "Nice gear!"
+        }
+    },
+    {
+        "model": "instagram.comment",
+        "pk": 5,
+        "fields": {
+            "created_at": "2023-11-04T19:00:00Z",
+            "updated_at": "2023-11-04T19:00:00Z",
+            "is_active": true,
+            "user": 6,
+            "post": 4,
+            "text": "I need the recipe."
+        }
+    },
+    {
+        "model": "instagram.comment",
+        "pk": 6,
+        "fields": {
+            "created_at": "2023-11-05T21:00:00Z",
+            "updated_at": "2023-11-05T21:00:00Z",
+            "is_active": true,
+            "user": 2,
+            "post": 5,
+            "text": "Great taste in music."
+        }
+    },
+    {
+        "model": "instagram.comment",
+        "pk": 7,
+        "fields": {
+            "created_at": "2023-11-06T08:00:00Z",
+            "updated_at": "2023-11-06T08:00:00Z",
+            "is_active": true,
+            "user": 7,
+            "post": 6,
+            "text": "What switches?"
+        }
+    },
+    {
+        "model": "instagram.comment",
+        "pk": 8,
+        "fields": {
+            "created_at": "2023-11-07T12:00:00Z",
+            "updated_at": "2023-11-07T12:00:00Z",
+            "is_active": true,
+            "user": 8,
+            "post": 7,
+            "text": "Keep it up!"
+        }
+    },
+    {
+        "model": "instagram.comment",
+        "pk": 9,
+        "fields": {
+            "created_at": "2023-11-08T17:00:00Z",
+            "updated_at": "2023-11-08T17:00:00Z",
+            "is_active": true,
+            "user": 9,
+            "post": 8,
+            "text": "GG!"
+        }
+    },
+    {
+        "model": "instagram.comment",
+        "pk": 10,
+        "fields": {
+            "created_at": "2023-11-10T23:00:00Z",
+            "updated_at": "2023-11-10T23:00:00Z",
+            "is_active": true,
+            "user": 10,
+            "post": 10,
+            "text": "Sleep is important too!"
+        }
+    }
+]

@@ -1,0 +1,172 @@
+[
+    {
+        "model": "accounts.customuser",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$1000000$J7t3Fz9Y$K8g5R2s4X9q1vB6n8M3c5L7p0W2e4R6t8Y1u3I5o7P=",
+            "last_login": null,
+            "is_superuser": true,
+            "username": "admin",
+            "first_name": "Admin",
+            "last_name": "User",
+            "email": "admin@example.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2023-01-01T00:00:00Z",
+            "phone_number": "+1234567890"
+        }
+    },
+    {
+        "model": "accounts.customuser",
+        "pk": 2,
+        "fields": {
+            "password": "pbkdf2_sha256$1000000$J7t3Fz9Y$K8g5R2s4X9q1vB6n8M3c5L7p0W2e4R6t8Y1u3I5o7P=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "sadra",
+            "first_name": "Sadra",
+            "last_name": "Dev",
+            "email": "sadra@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2023-02-15T10:30:00Z",
+            "phone_number": "+1234567891"
+        }
+    },
+    {
+        "model": "accounts.customuser",
+        "pk": 3,
+        "fields": {
+            "password": "pbkdf2_sha256$1000000$J7t3Fz9Y$K8g5R2s4X9q1vB6n8M3c5L7p0W2e4R6t8Y1u3I5o7P=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "mary",
+            "first_name": "Mary",
+            "last_name": "Jane",
+            "email": "mary@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2023-03-10T14:45:00Z",
+            "phone_number": "+1234567892"
+        }
+    },
+    {
+        "model": "accounts.customuser",
+        "pk": 4,
+        "fields": {
+            "password": "pbkdf2_sha256$1000000$J7t3Fz9Y$K8g5R2s4X9q1vB6n8M3c5L7p0W2e4R6t8Y1u3I5o7P=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "john",
+            "first_name": "John",
+            "last_name": "Doe",
+            "email": "john@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2023-04-05T09:15:00Z",
+            "phone_number": "+1234567893"
+        }
+    },
+    {
+        "model": "accounts.customuser",
+        "pk": 5,
+        "fields": {
+            "password": "pbkdf2_sha256$1000000$J7t3Fz9Y$K8g5R2s4X9q1vB6n8M3c5L7p0W2e4R6t8Y1u3I5o7P=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "alice",
+            "first_name": "Alice",
+            "last_name": "Smith",
+            "email": "alice@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2023-05-20T18:20:00Z",
+            "phone_number": "+1234567894"
+        }
+    },
+    {
+        "model": "accounts.customuser",
+        "pk": 6,
+        "fields": {
+            "password": "pbkdf2_sha256$1000000$J7t3Fz9Y$K8g5R2s4X9q1vB6n8M3c5L7p0W2e4R6t8Y1u3I5o7P=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "bob",
+            "first_name": "Bob",
+            "last_name": "Brown",
+            "email": "bob@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2023-06-12T11:10:00Z",
+            "phone_number": "+1234567895"
+        }
+    },
+    {
+        "model": "accounts.customuser",
+        "pk": 7,
+        "fields": {
+            "password": "pbkdf2_sha256$1000000$J7t3Fz9Y$K8g5R2s4X9q1vB6n8M3c5L7p0W2e4R6t8Y1u3I5o7P=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "charlie",
+            "first_name": "Charlie",
+            "last_name": "Davis",
+            "email": "charlie@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2023-07-08T16:05:00Z",
+            "phone_number": "+1234567896"
+        }
+    },
+    {
+        "model": "accounts.customuser",
+        "pk": 8,
+        "fields": {
+            "password": "pbkdf2_sha256$1000000$J7t3Fz9Y$K8g5R2s4X9q1vB6n8M3c5L7p0W2e4R6t8Y1u3I5o7P=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "diana",
+            "first_name": "Diana",
+            "last_name": "Evans",
+            "email": "diana@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2023-08-22T08:40:00Z",
+            "phone_number": "+1234567897"
+        }
+    },
+    {
+        "model": "accounts.customuser",
+        "pk": 9,
+        "fields": {
+            "password": "pbkdf2_sha256$1000000$J7t3Fz9Y$K8g5R2s4X9q1vB6n8M3c5L7p0W2e4R6t8Y1u3I5o7P=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "ethan",
+            "first_name": "Ethan",
+            "last_name": "Foster",
+            "email": "ethan@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2023-09-14T13:25:00Z",
+            "phone_number": "+1234567898"
+        }
+    },
+    {
+        "model": "accounts.customuser",
+        "pk": 10,
+        "fields": {
+            "password": "pbkdf2_sha256$1000000$J7t3Fz9Y$K8g5R2s4X9q1vB6n8M3c5L7p0W2e4R6t8Y1u3I5o7P=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "fiona",
+            "first_name": "Fiona",
+            "last_name": "Gallagher",
+            "email": "fiona@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2023-10-30T20:55:00Z",
+            "phone_number": "+1234567899"
+        }
+    }
+]
