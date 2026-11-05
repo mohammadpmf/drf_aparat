@@ -84,15 +84,12 @@ class PostReadSerializer(serializers.ModelSerializer):
 class PostWriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ["id", "user", "caption", "images"]
+        fields = ["id", "caption", "images"]
 
     images = serializers.ListField(
         child=serializers.ImageField(),
         write_only=True,
         required=False,
-    )
-    user = serializers.PrimaryKeyRelatedField(
-        queryset=UserProfile.objects.all(), required=False
     )
 
     def validate(self, attrs):
@@ -115,7 +112,8 @@ class PostWriteSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         images = validated_data.pop("images", [])
-        post = Post.objects.create(**validated_data)
+        user_profile = self.context.get("request").user.profile 
+        post = Post.objects.create(user=user_profile, **validated_data)
         Image.objects.bulk_create([Image(post=post, image=img) for img in images])
         return post
 

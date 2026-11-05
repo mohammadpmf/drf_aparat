@@ -11,6 +11,7 @@ from .serializers import (
     PostReadSerializer,
     PostWriteSerializer,
 )
+from .permissions import IsOwnerOrReadOnly
 
 
 @extend_schema_view(
@@ -46,14 +47,14 @@ from .serializers import (
 class UserProfileViewSet(ModelViewSet):
     serializer_class = UserProfileSerializer
     queryset = UserProfile.objects.filter(is_active=True).select_related("user")
+    permission_classes = [IsOwnerOrReadOnly]
 
-
-def _post_multipart_schema(required_user: bool = True):
+def _post_multipart_schema(required_images: bool = True):
+    # اگر required_images برابر True باشد، فیلد images اجباری است
     schema = {
         "multipart/form-data": {
             "type": "object",
             "properties": {
-                "user": {"type": "integer"},
                 "caption": {"type": "string"},
                 "images": {
                     "type": "array",
@@ -62,18 +63,19 @@ def _post_multipart_schema(required_user: bool = True):
             },
         }
     }
-    if required_user:
-        schema["multipart/form-data"]["required"] = ["user"]
+    if required_images:
+        schema["multipart/form-data"]["required"] = ["images"]
     return schema
 
 
 @extend_schema_view(
-    create=extend_schema(request=_post_multipart_schema(required_user=True)),
-    update=extend_schema(request=_post_multipart_schema(required_user=True)),
-    partial_update=extend_schema(request=_post_multipart_schema(required_user=False)),
+    create=extend_schema(request=_post_multipart_schema(required_images=True)),
+    update=extend_schema(request=_post_multipart_schema(required_images=True)),
+    partial_update=extend_schema(request=_post_multipart_schema(required_images=False)),
 )
 class PostViewSet(ModelViewSet):
     parser_classes = [MultiPartParser, FormParser, JSONParser]
+    permission_classes = [IsOwnerOrReadOnly]
 
     def get_serializer_class(self):
         if self.action in ("create", "update", "partial_update"):

@@ -4,3 +4,5 @@ venv
 ezafeh.py
 .env
 media/
+.vscode/
+*.sqlite3

@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.core.exceptions import ValidationError
 
 
 class Base(models.Model):
@@ -43,6 +44,10 @@ class Post(Base):
     def __str__(self):
         return f"{self.caption}"
 
+    def clean(self):
+        super().clean()
+        if self.pk and not self.images.exists():
+            raise ValidationError("A post must have at least one image.")
 
 class Image(Base):
     post = models.ForeignKey(to=Post, on_delete=models.CASCADE, related_name="images")
